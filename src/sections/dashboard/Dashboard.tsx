@@ -3,7 +3,7 @@ import styles from "./Dashboard.module.scss";
 import Brand from "./brand.svg?react";
 import Check from "./check.svg?react";
 import Error from "./error.svg?react";
-import PullRequest from "./git-pull-request.svg?react";
+import PullRequests from "./git-pull-request.svg?react";
 import IssueOpened from "./issue-opened.svg?react";
 import Lock from "./lock.svg?react";
 import Forks from "./repo-forked.svg?react";
@@ -14,7 +14,8 @@ import Watchers from "./watchers.svg?react";
 const isoToReadableDate = (lastUpdate: string): string => {
   const lastUpdateDate = new Date(lastUpdate);
   const currentDate = new Date();
-  const diffDays = currentDate.getDate() - lastUpdateDate.getDate();
+  const diffTime = currentDate.getDate() - lastUpdateDate.getDate();
+  const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
 
   if (diffDays === 0) {
     return "today";
@@ -30,7 +31,7 @@ const isoToReadableDate = (lastUpdate: string): string => {
 export function Dashboard() {
   return (
     <>
-      <header className={styles.container}>
+      <header className={styles.header}>
         <section className={styles.header__container}>
           <Brand />
           <h1 className={styles.app__brand}>DevDash_</h1>
@@ -52,7 +53,7 @@ export function Dashboard() {
               {widget.repositoryData.private ? <Lock /> : <Unlock />}
             </header>
             <div className={styles.widget__body}>
-              <div className={styles.widget_status}>
+              <div className={styles.widget__status}>
                 <p>Last update {isoToReadableDate(widget.repositoryData.updated_at)}</p>
                 {widget.ciStatus.workflow_runs.length > 0 && (
                   <div>
@@ -84,7 +85,7 @@ export function Dashboard() {
                 <span>{widget.repositoryData.open_issues_count}</span>
               </div>
               <div className={styles.widget__stat}>
-                <PullRequest />
+                <PullRequests />
                 <span>{widget.pullRequest.length}</span>
               </div>
             </footer>
