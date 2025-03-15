@@ -1966,7 +1966,7 @@ const dotlyResponses = {
 			active_lock_reason: null,
 		},
 	],
-	ciStatus: {
+	CiStatus: {
 		total_count: 795,
 		workflow_runs: [
 			{
@@ -2372,7 +2372,7 @@ const eslintPluginHexagonalArchitecturaResponses = {
 		subscribers_count: 4,
 	},
 	pullRequest: [],
-	ciStatus: {
+	CiStatus: {
 		total_count: 22,
 		workflow_runs: [
 			{
@@ -6971,7 +6971,7 @@ const refactoringCodeSmellsResponses = {
 			active_lock_reason: null,
 		},
 	],
-	ciStatus: {
+	CiStatus: {
 		total_count: 0,
 		workflow_runs: [],
 	},

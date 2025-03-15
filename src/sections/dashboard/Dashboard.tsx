@@ -1,4 +1,4 @@
-import { githubApiResponses } from "../../github_api_responses";
+import { InMemoryGitHubRepositoryRepository } from "../../infrastructure/InMemoryGitHubRepositoryRepository";
 import styles from "./Dashboard.module.scss";
 import Brand from "./brand.svg?react";
 import Check from "./check.svg?react";
@@ -14,7 +14,7 @@ import Watchers from "./watchers.svg?react";
 const isoToReadableDate = (lastUpdate: string): string => {
   const lastUpdateDate = new Date(lastUpdate);
   const currentDate = new Date();
-  const diffTime = currentDate.getDate() - lastUpdateDate.getDate();
+  const diffTime = currentDate.getTime() - lastUpdateDate.getTime();
   const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
 
   if (diffDays === 0) {
@@ -28,6 +28,10 @@ const isoToReadableDate = (lastUpdate: string): string => {
   return `${diffDays} days ago`;
 };
 
+const repository = new InMemoryGitHubRepositoryRepository();
+
+const repositories = repository.search();
+
 export function Dashboard() {
   return (
     <>
@@ -38,7 +42,7 @@ export function Dashboard() {
         </section>
       </header>
       <section className={styles.container}>
-        {githubApiResponses.map((widget) => (
+        {repositories.map((widget) => (
           <article className={styles.widget} key={widget.repositoryData.id}>
             <header className={styles.widget__header}>
               <a
@@ -55,9 +59,9 @@ export function Dashboard() {
             <div className={styles.widget__body}>
               <div className={styles.widget__status}>
                 <p>Last update {isoToReadableDate(widget.repositoryData.updated_at)}</p>
-                {widget.ciStatus.workflow_runs.length > 0 && (
+                {widget.CiStatus.workflow_runs.length > 0 && (
                   <div>
-                    {widget.ciStatus.workflow_runs[0].status === "completed" ? (
+                    {widget.CiStatus.workflow_runs[0].status === "completed" ? (
                       <Check />
                     ) : (
                       <Error />
