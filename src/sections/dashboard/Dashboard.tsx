@@ -1,22 +1,14 @@
-import { useEffect, useState } from 'react';
-
 import { config } from '../../devdash_config';
-import { GitHubRepository } from '../../domain/GitHubRepository';
 import { GitHubRepositoryRepository } from '../../domain/GitHubRepositoryRepository';
 import styles from "./Dashboard.module.scss";
 import Brand from "./brand.svg";
 import { GitHubRepositoryWidget } from './GitHubRepositoryWidget';
+import { useGitHubRepositories } from './useGitHubRepositories';
+
+const gitHubRepositoryUrls = config.widgets.map((widget) => widget.repository_url);
 
 export function Dashboard({ repository }: { repository: GitHubRepositoryRepository }) {
-  const [repositoryData, setRepositoryData] = useState<GitHubRepository[]>([]);
-
-  useEffect(() => {
-    repository
-      .search(config.widgets.map((widget) => widget.repository_url))
-      .then((repositoryData) => {
-        setRepositoryData(repositoryData);
-      });
-  }, []);
+  const { repositoryData } = useGitHubRepositories(repository, gitHubRepositoryUrls);
 
   return (
     <>
