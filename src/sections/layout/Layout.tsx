@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router-dom';
-import styles from './Layout.module.scss';
+
 import Brand from "./brand.svg";
+import { ErrorBoundary } from './ErrorBoundary';
+import styles from './Layout.module.scss';
 
 export function Layout() {
   return (
@@ -11,7 +13,9 @@ export function Layout() {
           <h1 className={styles.app__brand}>DevDash_</h1>
         </section>
       </header>
-      <Outlet />
+      <ErrorBoundary>
+        <Outlet />
+      </ErrorBoundary>
     </>
   );
 }
