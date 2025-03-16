@@ -1,7 +1,6 @@
 import { config } from '../../devdash_config';
 import { GitHubRepositoryRepository } from '../../domain/GitHubRepositoryRepository';
 import styles from "./Dashboard.module.scss";
-import Brand from "./brand.svg";
 import { GitHubRepositoryWidget } from './GitHubRepositoryWidget';
 import { useGitHubRepositories } from './useGitHubRepositories';
 
@@ -12,12 +11,6 @@ export function Dashboard({ repository }: { repository: GitHubRepositoryReposito
 
   return (
     <>
-      <header className={styles.header}>
-        <section className={styles.header__container}>
-          <img src={Brand} alt='' />
-          <h1 className={styles.app__brand}>DevDash_</h1>
-        </section>
-      </header>
       {repositoryData.length === 0 ? (
         <div className={styles.empty}>
           <span>No hay widgets configurados.</span>
