@@ -1,14 +1,16 @@
+import { Link } from 'react-router-dom';
+
+import Check from '../../assets/svgs/check.svg';
+import Error from '../../assets/svgs/error.svg';
+import PullRequests from '../../assets/svgs/git-pull-request.svg';
+import IssueOpened from '../../assets/svgs/issue-opened.svg';
+import Lock from '../../assets/svgs/lock.svg';
+import Forks from '../../assets/svgs/repo-forked.svg';
+import Start from '../../assets/svgs/star.svg';
+import Unlock from '../../assets/svgs/unlock.svg';
+import Watchers from '../../assets/svgs/watchers.svg';
 import { GitHubRepository } from '../../domain/GitHubRepository';
 import styles from './GitHubRepositoryWidget.module.scss';
-import Check from './check.svg';
-import Error from './error.svg';
-import PullRequests from './git-pull-request.svg';
-import IssueOpened from './issue-opened.svg';
-import Lock from './lock.svg';
-import Forks from './repo-forked.svg';
-import Start from './star.svg';
-import Unlock from './unlock.svg';
-import Watchers from './watchers.svg';
 
 const isoToReadableDate = (lastUpdateDate: Date): string => {
   const currentDate = new Date();
@@ -31,14 +33,9 @@ export function GitHubRepositoryWidget({ widget }: {widget: GitHubRepository}) {
     <article className={styles.widget} key={`${widget.id.organization}/${widget.id.name}`}>
       <header className={styles.widget__header}>
         <h2 className={styles.widget__title}>
-          <a
-            href={`/repository/${widget.id.organization}/${widget.id.name}`}
-            target="_blank"
-            title={`${widget.id.organization}/${widget.id.name}`}
-            rel="noreferrer"
-          >
+          <Link to={`/repository/${widget.id.organization}/${widget.id.name}`}>
             {widget.id.organization}/{widget.id.name}
-          </a>
+          </Link>
         </h2>
         {widget.private ? <img src={Lock} alt='' /> : <img src={Unlock} alt='' />}
       </header>
