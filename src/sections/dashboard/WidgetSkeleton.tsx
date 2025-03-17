@@ -1,4 +1,5 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import PullRequests from "../../assets/svgs/git-pull-request.svg";
 import IssueOpened from "../../assets/svgs/issue-opened.svg";
