@@ -4,11 +4,13 @@ import svgr from "vite-plugin-svgr";
 
 export default defineConfig((configEnv) => {
 	const isDevelopment = configEnv.mode === "development";
-	const env = loadEnv(configEnv.mode, process.cwd(), '');
+	const env = loadEnv(configEnv.mode, process.cwd(), "");
 
 	return {
 		define: {
-			'process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN': JSON.stringify(env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN)
+			"process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN": JSON.stringify(
+				env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN
+			),
 		},
 		plugins: [react(), svgr()],
 		css: {

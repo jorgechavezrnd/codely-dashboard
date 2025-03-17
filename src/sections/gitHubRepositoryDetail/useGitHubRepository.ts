@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { GitHubRepository, RepositoryId } from '../../domain/GitHubRepository';
-import { GitHubRepositoryRepository } from '../../domain/GitHubRepositoryRepository';
+import { GitHubRepository, RepositoryId } from "../../domain/GitHubRepository";
+import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
 
 export function useGitHubRepository(
-  repository: GitHubRepositoryRepository,
-  repositoryId: RepositoryId
+	repository: GitHubRepositoryRepository,
+	repositoryId: RepositoryId
 ): {
-  repositoryData: GitHubRepository | undefined;
+	repositoryData: GitHubRepository | undefined;
 } {
-  const [repositoryData, setRepositoryData] = useState<GitHubRepository>();
+	const [repositoryData, setRepositoryData] = useState<GitHubRepository>();
 
-  useEffect(() => {
-    repository.byId(repositoryId).then((repositoryData) => {
-      setRepositoryData(repositoryData);
-    });
-  }, [repository, repositoryId]);
+	useEffect(() => {
+		repository.byId(repositoryId).then((repositoryData) => {
+			setRepositoryData(repositoryData);
+		});
+	}, [repository, repositoryId]);
 
-  return { repositoryData };
+	return { repositoryData };
 }
