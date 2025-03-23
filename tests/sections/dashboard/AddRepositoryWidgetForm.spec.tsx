@@ -9,53 +9,53 @@ import { AddRepositoryWidgetForm } from "../../../src/sections/dashboard/reposit
 const mockRepository = mock<LocalStorageRepositoryWidgetRepository>();
 
 describe("AddWidgetForm", () => {
-  it("show widget form when add button is clicked", async () => {
-    render(<AddRepositoryWidgetForm repository={mockRepository} />);
+	it("show widget form when add button is clicked", async () => {
+		render(<AddRepositoryWidgetForm repository={mockRepository} />);
 
-    const button = await screen.findByRole("button", {
-      name: new RegExp("Añadir", "i"),
-    });
+		const button = await screen.findByRole("button", {
+			name: new RegExp("Añadir", "i"),
+		});
 
-    act(() => {
-      userEvent.click(button);
-    });
+		act(() => {
+			userEvent.click(button);
+		});
 
-    const url = screen.getByLabelText(/Url del repositorio/i);
+		const url = screen.getByLabelText(/Url del repositorio/i);
 
-    expect(url).toBeInTheDocument();
-  });
+		expect(url).toBeInTheDocument();
+	});
 
-  it("save new widget when form is submitted", async () => {
-    const newWidget: RepositoryWidget = {
-      id: "newWidgetId",
-      repositoryUrl: "https://github.com/CodelyTV/DevDash",
-    };
+	it("save new widget when form is submitted", async () => {
+		const newWidget: RepositoryWidget = {
+			id: "newWidgetId",
+			repositoryUrl: "https://github.com/CodelyTV/DevDash",
+		};
 
-    render(<AddRepositoryWidgetForm repository={mockRepository} />);
+		render(<AddRepositoryWidgetForm repository={mockRepository} />);
 
-    const button = await screen.findByRole("button", {
-      name: new RegExp("Añadir repositorio", "i"),
-    });
-    act(() => {
-      userEvent.click(button);
-    });
+		const button = await screen.findByRole("button", {
+			name: new RegExp("Añadir repositorio", "i"),
+		});
+		act(() => {
+			userEvent.click(button);
+		});
 
-    const id = screen.getByLabelText(/Id/i);
-    userEvent.type(id, newWidget.id);
-    
-    const url = screen.getByLabelText(/Url del repositorio/i);
-    userEvent.type(url, newWidget.repositoryUrl);
+		const id = screen.getByLabelText(/Id/i);
+		userEvent.type(id, newWidget.id);
 
-    const submitButton = await screen.findByRole("button", {
-      name: /Añadir/i
-    });
-    userEvent.click(submitButton);
+		const url = screen.getByLabelText(/Url del repositorio/i);
+		userEvent.type(url, newWidget.repositoryUrl);
 
-    const addAnotherRepositoryFormButton = await screen.findByRole("button", {
-      name: new RegExp("Añadir repositorio", "i"),
-    });
+		const submitButton = await screen.findByRole("button", {
+			name: /Añadir/i,
+		});
+		userEvent.click(submitButton);
 
-    expect(addAnotherRepositoryFormButton).toBeInTheDocument();
-    expect(mockRepository.save).toHaveBeenCalledWith(newWidget);
-  });
+		const addAnotherRepositoryFormButton = await screen.findByRole("button", {
+			name: new RegExp("Añadir repositorio", "i"),
+		});
+
+		expect(addAnotherRepositoryFormButton).toBeInTheDocument();
+		expect(mockRepository.save).toHaveBeenCalledWith(newWidget);
+	});
 });
