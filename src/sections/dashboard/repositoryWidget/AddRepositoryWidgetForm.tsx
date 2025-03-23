@@ -17,13 +17,15 @@ export function AddRepositoryWidgetForm({
 	repository: RepositoryWidgetRepository;
 }) {
 	const [isFormActive, setIsFormActive] = useState(false);
+	const [hasAlreadyExistsError, setHasAlreadyExistsError] = useState(false);
 	const { save } = useAddRepositoryWidget(repository);
 
 	const submitForm = async (ev: FormEvent<FormFields>) => {
 		ev.preventDefault();
 		const { id, url } = ev.target.elements;
-		await save({ id: id.value, repositoryUrl: url.value });
-		setIsFormActive(false);
+		const error = await save({ id: id.value, repositoryUrl: url.value });
+		setHasAlreadyExistsError(!!error);
+		setIsFormActive(true);
 	};
 
 	return (
@@ -44,6 +46,12 @@ export function AddRepositoryWidgetForm({
 							<label htmlFor="url">Url del repositorio</label>
 							<input type="text" id="url" />
 						</div>
+
+						{hasAlreadyExistsError && (
+							<p role="alert" aria-describedby="duplicated-error">
+								<span id="duplicated-error">Repositorio duplicado</span>
+							</p>
+						)}
 
 						<div>
 							<input type="submit" value="Añadir" />
