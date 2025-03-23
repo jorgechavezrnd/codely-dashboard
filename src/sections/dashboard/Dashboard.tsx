@@ -1,5 +1,6 @@
 import { config } from "../../devdash_config";
 import { GitHubRepositoryRepository } from "../../domain/GitHubRepositoryRepository";
+import { AddWidgetForm } from "./AddWidgetForm";
 import styles from "./Dashboard.module.scss";
 import { GitHubRepositoryWidget } from "./GitHubRepositoryWidget";
 import { useGitHubRepositories } from "./useGitHubRepositories";
@@ -30,6 +31,7 @@ export function Dashboard({ repository }: { repository: GitHubRepositoryReposito
 							widget={widget}
 						/>
 					))}
+					<AddWidgetForm />
 				</section>
 			)}
 		</>
