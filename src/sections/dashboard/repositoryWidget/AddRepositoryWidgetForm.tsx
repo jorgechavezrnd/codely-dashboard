@@ -9,7 +9,7 @@ type FormEvent<T> = React.FormEvent<HTMLFormElement> & {
 	target: { elements: { [key in keyof T]: { value: T[key] } } };
 };
 
-type FormFields = { id: string; repositoryUrl: string };
+type FormFields = { id: string; url: string };
 
 export function AddRepositoryWidgetForm({
 	repository,
@@ -21,8 +21,8 @@ export function AddRepositoryWidgetForm({
 
 	const submitForm = async (ev: FormEvent<FormFields>) => {
 		ev.preventDefault();
-		const { id, repositoryUrl } = ev.target.elements;
-		await save({ id: id.value, repositoryUrl: repositoryUrl.value });
+		const { id, url } = ev.target.elements;
+		await save({ id: id.value, repositoryUrl: url.value });
 		setIsFormActive(false);
 	};
 
@@ -46,7 +46,7 @@ export function AddRepositoryWidgetForm({
 						</div>
 
 						<div>
-							<input type="submit" value={"Añadir"} />
+							<input type="submit" value="Añadir" />
 						</div>
 					</form>
 				)}
