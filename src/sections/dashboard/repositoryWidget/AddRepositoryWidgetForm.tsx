@@ -9,7 +9,7 @@ type FormEvent<T> = React.FormEvent<HTMLFormElement> & {
 	target: { elements: { [key in keyof T]: { value: T[key] } } };
 };
 
-type FormFields = { id: string, repositoryUrl: string };
+type FormFields = { id: string; repositoryUrl: string };
 
 export function AddRepositoryWidgetForm({
 	repository,
