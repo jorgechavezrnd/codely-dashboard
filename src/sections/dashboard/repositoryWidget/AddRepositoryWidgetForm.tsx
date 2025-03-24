@@ -25,13 +25,13 @@ export function AddRepositoryWidgetForm({
 		const { id, url } = ev.target.elements;
 		const error = await save({ id: id.value, repositoryUrl: url.value });
 		setHasAlreadyExistsError(!!error);
-		setIsFormActive(true);
+		setIsFormActive(false);
 	};
 
 	return (
 		<article className={styles.add_widget}>
 			<div className={styles.container}>
-				{!isFormActive ? (
+				{!isFormActive && !hasAlreadyExistsError ? (
 					<button onClick={() => setIsFormActive(true)} className={styles.add_button}>
 						<img src={Add} alt="" />
 						<p>Añadir repositorio</p>
