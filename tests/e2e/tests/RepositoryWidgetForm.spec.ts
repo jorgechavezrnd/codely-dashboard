@@ -1,15 +1,10 @@
-//import { RepositoryWidgetMother } from "../../RepositoryWidgetMother";
-import { RepositoryWidget } from "../../../src/domain/RepositoryWidget";
+import { RepositoryWidgetMother } from "../../RepositoryWidgetMother";
 
 describe("Repository Widget Form", () => {
 	it("Add new repository with id and url", () => {
-		//const newWidget = RepositoryWidgetMother.create({
-		//  repositoryUrl: "https://github.com/CodelyTV/DevDash",
-		//});
-		const newWidget: RepositoryWidget = {
-			id: "2565fa91-2ac4-4e4f-9111-6d27a598083d",
+		const newWidget = RepositoryWidgetMother.create({
 			repositoryUrl: "https://github.com/CodelyTV/react-devdash",
-		};
+		});
 
 		cy.visit("/");
 
@@ -30,10 +25,9 @@ describe("Repository Widget Form", () => {
 	});
 
 	it("Show error when repository already exists in Dashboard", () => {
-		const newWidget: RepositoryWidget = {
-			id: "2565fa91-2ac4-4e4f-9111-6d27a598084d",
+		const newWidget = RepositoryWidgetMother.create({
 			repositoryUrl: "https://github.com/CodelyTV/react-devdash",
-		};
+		});
 
 		cy.visit("/");
 
