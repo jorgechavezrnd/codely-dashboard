@@ -10,7 +10,7 @@ import Start from "../../../assets/svgs/star.svg";
 import Unlock from "../../../assets/svgs/unlock.svg";
 import Watchers from "../../../assets/svgs/watchers.svg";
 import { GitHubRepository } from "../../../domain/GitHubRepository";
-import styles from "./GitHubRepositoryWidget.module.scss";
+import styles from "../repositoryWidget/RepositoryWidget.module.scss";
 
 const isoToReadableDate = (lastUpdateDate: Date): string => {
 	const currentDate = new Date();
