@@ -2,6 +2,7 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mock } from "jest-mock-extended";
 
+import { DomainEvents } from "../../../src/domain/DomainEvents";
 import { RepositoryWidget } from "../../../src/domain/RepositoryWidget";
 import { LocalStorageRepositoryWidgetRepository } from "../../../src/infrastructure/LocalStorageWidgetRepository";
 import { AddRepositoryWidgetForm } from "../../../src/sections/dashboard/repositoryWidget/AddRepositoryWidgetForm";
@@ -26,6 +27,7 @@ describe("AddWidgetForm", () => {
 	});
 
 	it("save new widget when form is submitted", async () => {
+		const dispatchEventSpy = jest.spyOn(document, "dispatchEvent");
 		mockRepository.search.mockResolvedValue([]);
 
 		const newWidget: RepositoryWidget = {
@@ -55,7 +57,15 @@ describe("AddWidgetForm", () => {
 			userEvent.click(submitButton);
 		});
 
+		const addAnotherRepositoryFormButton = await screen.findByRole("button", {
+			name: new RegExp("Añadir repositorio", "i"),
+		});
+
+		expect(addAnotherRepositoryFormButton).toBeInTheDocument();
 		expect(mockRepository.save).toHaveBeenCalledWith(newWidget);
+
+		expect(dispatchEventSpy).toHaveBeenCalledWith(expect.any(Event));
+		expect(dispatchEventSpy.mock.calls[0][0].type).toBe(DomainEvents.repositoryWidgetAdded);
 	});
 
 	it("show error when repository already exists in Dashboard", async () => {
