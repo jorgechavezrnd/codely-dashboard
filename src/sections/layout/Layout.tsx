@@ -17,6 +17,10 @@ export function Layout() {
 					<Link to={`/`}>
 						<h1 className={styles.app__brand}>DevDash_</h1>
 					</Link>
+
+					<Link to="/config">
+						<span>⚙️</span>
+					</Link>
 				</section>
 			</header>
 			<ErrorBoundary>
